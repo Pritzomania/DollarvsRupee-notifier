@@ -6,7 +6,7 @@ import { db } from './db';
 const cron = require('node-cron');
 
 export function runCron() {
-  cron.schedule('* * * * *', async function() {
+  cron.schedule('0 */12 * * *', async function() {
     console.log('running a task every minute');
     const exchange = await getExchange();
     console.log(exchange.data.rates, exchange.data.date);
