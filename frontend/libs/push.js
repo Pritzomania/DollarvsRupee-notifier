@@ -5,7 +5,7 @@ const publicVapidKey =
 
 const run = async () => {
   const registration = await window.navigator.serviceWorker
-    .register('/worker.js', {
+    .register('/service-worker.js', {
       scope: '/',
     })
     .catch(err => console.log(err));

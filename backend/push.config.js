@@ -1,6 +1,6 @@
 import webpush from 'web-push';
 
-export default function configure() {
+export default function configurePush() {
   const publicVapidKey = process.env.PUBLIC_VAPID_KEY;
   const privateVapidKey = process.env.PRIVATE_VAPID_KEY;
 

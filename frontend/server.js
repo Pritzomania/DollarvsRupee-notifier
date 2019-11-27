@@ -12,7 +12,8 @@ app.prepare().then(() => {
     const { pathname } = parsedUrl;
 
     // handle GET request to /service-worker.js
-    if (pathname === '/worker.js') {
+    if (pathname === '/serworker.js') {
+      console.log('inside worker');
       const filePath = join(__dirname, '.next', pathname);
 
       app.serveStatic(req, res, filePath);
