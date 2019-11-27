@@ -33,7 +33,7 @@ self.addEventListener('notificationclick', function(e) {
   if (action === 'close') {
     notification.close();
   } else {
-    clients.openWindow(`${self.registration.scope}about`);
+    clients.openWindow(`${self.registration.scope}rate`);
     notification.close();
   }
 });

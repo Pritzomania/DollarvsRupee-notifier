@@ -5,5 +5,5 @@ const adapter = new FileSync('generated/db.json');
 export const db = low(adapter);
 
 export function initDb() {
-  db.defaults({ subscription: {} }).write();
+  db.defaults({ subscription: {}, exchange: [] }).write();
 }

@@ -3,6 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import webpush from 'web-push';
 import cors from 'cors';
+import { runCron } from './scheduler';
 
 // eslint-disable-next-line import/first
 import configurePush from './push.config';
@@ -25,6 +26,7 @@ configurePush();
 app.get('/', (req, res, next) => {
   res.send('This is the backend');
 });
+
 app.post('/subscribe', (req, res, next) => {
   const currentSubscription = db.get('subscription').value();
   const subscription = {
@@ -46,11 +48,22 @@ app.post('/subscribe', (req, res, next) => {
     console.log('subscription created: ', subscription);
     db.set('subscription', subscription).write();
 
+    runCron();
+
     const payload = JSON.stringify({ title: 'Registered Successfully!' });
     webpush.sendNotification(subscription, payload).catch(error => {
       console.error(error.stack);
     });
   }
+});
+
+app.get('/fetch', (req, res, next) => {
+  const currentExchangeData = db.get('exchange').value();
+  let response = null;
+  if (currentExchangeData.length) {
+    response = { data: currentExchangeData[0] };
+  }
+  res.status(200).json(response);
 });
 
 app.get('/push', (req, res, next) => {
